@@ -1,13 +1,15 @@
 package Home_work_4;
 
-import java.util.Scanner;
 import java.util.Random;
-
-import static Home_work_4.Hw4.XOgame.SIZE;
+import java.util.Scanner;
 import static Home_work_4.Hw4.XOgame.map;
 
 public class Hw4 {
-        public static class XOgame {
+
+
+
+
+    public static class XOgame {
         static final int SIZE = 3;
 //    static final int DOTS_TO_WIN = 3;
 
@@ -20,14 +22,14 @@ public class Hw4 {
         static Scanner sc = new Scanner(System.in);
         static Random random = new Random();
 
-        public static void main(String[] args) {
+        public static void main( String[] args ) {
             initMap();
             printMap();
 
             while (true) {
                 humanTurn();
                 printMap();
-                if(Winner(DOT_X)){
+                if (checkWin(DOT_X)) {
                     System.out.println("Ты победил! ");
                     break;
                 }
@@ -38,7 +40,7 @@ public class Hw4 {
 
                 aiTurn();
                 printMap();
-                if(Winner(DOT_O)){
+                if (checkWin(DOT_O)) {
                     System.out.println("Компьютер победил! ");
                     break;
                 }
@@ -87,7 +89,7 @@ public class Hw4 {
             map[y][x] = DOT_X;
         }
 
-        public static boolean isCellValid(int y, int x) {
+        public static boolean isCellValid( int y, int x ) {
             if (x < 0 || y < 0 || x >= SIZE || y >= SIZE) {
                 return false;
             }
@@ -104,6 +106,7 @@ public class Hw4 {
 
             map[y][x] = DOT_O;
         }
+
         public static boolean isFull() {
             for (int i = 0; i < SIZE; i++) {
                 for (int j = 0; j < SIZE; j++) {
@@ -115,21 +118,37 @@ public class Hw4 {
             return true;
         }
 
-
-    }
-   static boolean Winner(char dot) {
-        for (int i = 0; i < 3; i++)
-            if ((map[i][0] == dot && map[i][1] == dot &&
-                    map[i][2] == dot) ||
-                    (map[0][i] == dot && map[1][i] == dot &&
-                            map[2][i] == dot))
+        public static boolean checkWin( char c ) {
+            if (map[0][0] == c && map[0][1] == c && map[0][2] == c) {
                 return true;
-        if ((map[0][0] == dot && map[1][1] == dot &&
-                map[2][2] == dot) ||
-                (map[2][0] == dot && map[1][1] == dot &&
-                        map[0][2] == dot))
-            return true;
-        return false;
+            }
+            if (map[1][0] == c && map[1][1] == c && map[1][2] == c) {
+                return true;
+            }
+            if (map[2][0] == c && map[2][1] == c && map[2][2] == c) {
+                return true;
+            }
+
+            if (map[0][0] == c && map[1][0] == c && map[2][0] == c) {
+                return true;
+            }
+            if (map[0][1] == c && map[1][1] == c && map[2][1] == c) {
+                return true;
+            }
+            if (map[0][2] == c && map[1][2] == c && map[2][2] == c) {
+                return true;
+            }
+
+            if (map[0][0] == c && map[1][1] == c && map[2][2] == c) {
+                return true;
+            }
+            if (map[0][2] == c && map[1][1] == c && map[2][0] == c) {
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }
 
